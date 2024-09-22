@@ -1,0 +1,44 @@
+
+.board {
+  border: 50px solid;
+    /* box-shadow: 10px; */
+    display: grid;
+    grid-template-columns: repeat(8, 55px);
+    grid-template-rows: repeat(8, 55px);
+    gap: 5px;
+  }
+  
+  .valid-move {
+    background-color: #90ee90; 
+  }
+  
+  .row {
+    display: contents;
+  }
+  
+  .cell {
+    width: 60px;
+    height: 60px;
+    background-color: #008000; 
+    border: 2px solid #016201;
+    position: relative;
+  }
+  
+  .disc {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .disc.black {
+    background-color: black;
+  }
+  
+  .disc.white {
+    background-color: white;
+  }
+  
