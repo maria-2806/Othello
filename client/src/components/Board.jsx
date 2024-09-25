@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import '../Board.css'; // Assuming you have the styles defined here
+import React, { useContext, useState } from 'react';
+import { MyContext } from '../context/MyProvider';
 
 const directions = [
-  [-1, 0], [1, 0],  
-  [0, -1], [0, 1], 
-  [-1, -1], [-1, 1], 
-  [1, -1], [1, 1]   
+  [-1, 0], [1, 0], [0, -1], [0, 1], 
+  [-1, -1], [-1, 1], [1, -1], [1, 1]
 ];
 
 const Board = () => {
+  const [playerName] = useContext(MyContext);
   const emptyBoard = Array(8).fill(null).map(() => Array(8).fill(null));
   const [currentPlayer, setCurrentPlayer] = useState('black');
 
@@ -21,45 +20,40 @@ const Board = () => {
     return initialBoard;
   });
 
-
-  // Function to check if a move is valid
   const isValidMove = (board, row, col, currentPlayer) => {
     if (board[row][col] !== null) {
-      return false; 
+      return false;
     }
 
     const opponent = currentPlayer === 'black' ? 'white' : 'black';
 
-    // Checking  all the 8 directions
     for (let [dx, dy] of directions) {
       let x = row + dx;
       let y = col + dy;
       let hasOpponentDisc = false;
 
-      // Traverse in the directions
       while (x >= 0 && x < 8 && y >= 0 && y < 8 && board[x][y] === opponent) {
         x += dx;
         y += dy;
         hasOpponentDisc = true;
       }
-//checking presence of the player's disc at the end of opponents discs
+
       if (hasOpponentDisc && x >= 0 && x < 8 && y >= 0 && y < 8 && board[x][y] === currentPlayer) {
-        return true; // The move is valid
+        return true;
       }
     }
 
-    return false; // No valid direction
+    return false;
   };
 
   const handleClick = (row, col) => {
     if (isValidMove(board, row, col, currentPlayer)) {
       const updatedBoard = makeMove(board, row, col, currentPlayer);
       setBoard(updatedBoard);
-      setCurrentPlayer(currentPlayer === 'black' ? 'white' : 'black'); 
+      setCurrentPlayer(currentPlayer === 'black' ? 'white' : 'black');
     }
   };
 
-  // moving and fliping the opponent's discs
   const makeMove = (board, row, col, currentPlayer) => {
     const newBoard = board.map(row => row.slice());
     const opponent = currentPlayer === 'black' ? 'white' : 'black';
@@ -88,27 +82,54 @@ const Board = () => {
   };
 
   return (
-    <div className="compborder flex justify-center">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="mb-5 text-4xl font-bold text-gray-800">Othello</div>
+      <div className="bg-[#000000] p-4 rounded-lg shadow-2xl">
+        <div className="grid grid-cols-8 gap-1">
+          {board.map((row, rowIndex) => (
+            row.map((cell, colIndex) => {
+              const isValid = isValidMove(board, rowIndex, colIndex, currentPlayer);
+              return (
+                <div style={{boxShadow: 'boxShadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.001)'}}
+                  className={`w-12 h-12 bg-[#0b5a0b] shadow-inner flex items-center justify-center cursor-pointer
+                    ${isValid ? 'hover:bg-[#107e0f]' : ''}`}
+                  onClick={() => handleClick(rowIndex, colIndex)}
+                >
+                  {cell && (
+  <div
+    className={`w-10 h-10 ${
+      cell === 'black' ? 'bg-black' : 'bg-gray-100'
+    } rounded-full shadow-lg shadow-black/50 flex items-center justify-center`}
+  >
+    <div
+      className={`w-8 h-8 rounded-full ${
+        cell === 'black'
+          ? 'bg-gradient-to-br from-gray-800 to-black'
+          : 'bg-gradient-to-br from-gray-300 to-gray-100'
+      }`}
+    ></div>
+  </div>
+)}
 
-    <div className="board shadow-2xl">
-      {board.map((row, rowIndex) => (
-        <div key={rowIndex} className="row">
-          {row.map((cell, colIndex) => {
-            const isValid = isValidMove(board, rowIndex, colIndex, currentPlayer);
-            return (
-              <div
-                key={colIndex}
-                className={`cell ${isValid ? 'valid-move' : ''}`}
-                onClick={() => handleClick(rowIndex, colIndex)}
-              >
-                {cell === 'black' && <div className="disc black"></div>}
-                {cell === 'white' && <div className="disc white"></div>}
-              </div>
-            );
-          })}
+                  {isValid && !cell && (
+                    <div className={`w-4 h-4 rounded-full drop-shadow-xl ${
+                      currentPlayer === 'black' ? 'bg-gray-900' : 'bg-gray-100'
+                    } opacity-50`}></div>
+                  )}
+                </div>
+              );
+            })
+          ))}
         </div>
-      ))}
-    </div>
+      </div>
+      <div className="mt-4 text-2xl font-semibold text-gray-700">
+        Player: <span className="text-blue-600">{playerName}</span>
+      </div>
+      <div className="mt-2 text-xl font-medium text-gray-600">
+        Current Turn: <span className='font-bold text-black'>
+          {currentPlayer.charAt(0).toUpperCase() + currentPlayer.slice(1)}
+        </span>
+      </div>
     </div>
   );
 };
