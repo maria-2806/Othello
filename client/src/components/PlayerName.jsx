@@ -36,7 +36,7 @@ const PlayerName = ({ onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (playerName.trim()) {
-      navigate('/board'); // Navigate to the game board
+      navigate('/board'); 
     }
   };
 
@@ -49,11 +49,11 @@ const PlayerName = ({ onSubmit }) => {
       height: '100vh',
       backgroundColor: '#f0f0f0',
       backgroundImage: `
-        linear-gradient(45deg, #e0e0e0 25%, transparent 25%),
-        linear-gradient(-45deg, #e0e0e0 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, #e0e0e0 75%),
-        linear-gradient(-45deg, transparent 75%, #e0e0e0 75%)
-      `,
+      linear-gradient(45deg, #e0e0e0 25%, transparent 25%),
+      linear-gradient(-45deg, #e0e0e0 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #000000 75%),
+      linear-gradient(-45deg, transparent 75%, #000000 75%)
+    `,
       backgroundSize: '40px 40px',
       backgroundPosition: '0 0, 0 20px, 20px -20px, -20px 0px',
     }}>

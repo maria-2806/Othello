@@ -4,6 +4,9 @@ import './App.css';
 import Board from './components/Board';
 import PlayerName from './components/PlayerName';
 import MyProvider from './context/MyProvider';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 function App() {
   return (
     // <PlayerName/>
