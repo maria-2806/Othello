@@ -275,10 +275,13 @@ const Board = () => {
 
 
   return (
-    <div className="bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.8),_rgba(0,0,0,2))] flex min-h-screen">
-      <div className="left mt-10 w-[30vw]">
-        <div className='w-full h-24 ml-11'> <img className='shadow-xl' src={heroimg}></img> </div>
-        <div className="info text-white mt-4 px-4">
+  
+    <div className="bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.8),_rgba(0,0,0,2))] min-w-screen p-0 m-0 lg:flex min-w-screen min-h-screen">
+      <div className="lg:left  lg:w-[30vw]">
+        <div className='flex flex-col justify-center'>
+
+        <div className='w-full flex justify-center'> <img className='lg:w-full lg:mt-5 md:mt-0 xl:h-24 shadow-xl xl:pt-5 ' src={heroimg}></img> </div>
+        <div className="info text-white mt-4 px-4 text-center">
           Simple to learn, impossible to master! Flip your way to victory in this timeless strategy game where every move counts. With each turn, the board shifts, and fortunes can change in an instant.
           New to the game?? 
         </div>
@@ -340,25 +343,26 @@ const Board = () => {
               {gameResult}
             </div>
           )}
+          </div>
         </div>
       </div>
 
-      <div className="middle w-[35vw] mx-[2.5vw]">
+      <div className="middle xl:w-[35vw] xl:mx-[2.5vw] min-w-[35vw] ">
 
-        <div className="bg-[#000000] p-4 rounded-lg shadow-2xl mt-20">
+        <div className="bg-[#000000] p-4 rounded-lg shadow-2xl mt-20 md:max-w-[80vh]">
           <div className="grid grid-cols-8 gap-1">
             {board.map((row, rowIndex) => (
               row.map((cell, colIndex) => {
                 const isValid = isValidMove(board, rowIndex, colIndex, currentPlayer);
                 return (
                   <div style={{ boxShadow: 'boxShadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.001)' }}
-                    className={`w-12 h-12 bg-[#0b5a0b] shadow-inner flex items-center justify-center cursor-pointer
+                    className={`lg:w-12 lg:h-12 w-9.9 h-10 bg-[#0b5a0b] shadow-inner flex items-center justify-center cursor-pointer
                   ${isValid ? 'hover:bg-[#107e0f]' : ''}`}
                     onClick={() => handleClick(rowIndex, colIndex)}
                   >
                     {cell && (
                       <div
-                        className={`w-10 h-10 ${cell === 'black' ? 'bg-black' : 'bg-gray-100'
+                        className={`lg:w-10 w-8 h-8 lg:h-10 ${cell === 'black' ? 'bg-black' : 'bg-gray-100'
                           } rounded-full shadow-lg shadow-black/50 flex items-center justify-center`}
                       >
                         <div
@@ -381,8 +385,8 @@ const Board = () => {
           </div>
         </div>
       </div>
-      <div className="right w-[30vw] text-white mt-14">
-        <div className='bg-[#969696] w-[25vw] px-5 pb-2 rounded-lg'>
+      <div className="right lg:w-[25vw] xl:w-[30vw] text-white mt-14">
+        <div className='bg-[#969696] lg:w-[25vw] md:ml-4 px-5 lg:mb-4 md:mb-0 md:pb-2 rounded-lg'>
 
         <div className="mt-4 text-2xl font-semibold">Player: {playerName}</div>
         <div className="mt-2 text-xl font-medium">Current Turn:
