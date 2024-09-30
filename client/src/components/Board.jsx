@@ -336,12 +336,12 @@ const Board = () => {
             </DialogContent>
           </Dialog>
         
-        <div>
+        <div className='flex justify-center'>
 
           {gameResult && (
-            <div className="mt-4 text-3xl font-bold text-green-600 px-4">
+            <span className="mt-4 text-3xl font-bold text-green-600 px-4 text-center">
               {gameResult}
-            </div>
+            </span>
           )}
           </div>
         </div>
