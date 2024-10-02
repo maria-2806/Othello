@@ -139,7 +139,7 @@ const Board = () => {
     return { blackScore, whiteScore };
   };
 
-  const { blackScore, whiteScore } = calculateScore(board); // Get current scores
+  const { blackScore, whiteScore } = calculateScore(board); 
 
 
 
@@ -275,12 +275,17 @@ const Board = () => {
 
 
   return (
-  
-    <div className="bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.8),_rgba(0,0,0,2))] min-w-screen p-0 m-0 lg:flex min-w-screen min-h-screen">
-      <div className="lg:left  lg:w-[30vw]">
-        <div className='flex flex-col justify-center'>
+  <div className='bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.8),_rgba(0,0,0,2))] p-0 m-0  min-w-screen min-h-screen'>
 
-        <div className='w-full flex justify-center'> <img className='lg:w-full lg:mt-5 md:mt-0 xl:h-24 shadow-xl xl:pt-5 ' src={heroimg}></img> </div>
+      <div className="top">
+        <div className='flex justify-center'> <img className='lg:w-[20vw] lg:pt-3 pb-3 lg:pb-5 pt-3 xl:h-24 shadow-xl xl:pt-5 ' src={heroimg}></img> </div>
+
+      </div>
+    <div className="lg:flex justify-evenly items-center">
+      
+      <div className="lg:left pb-9 lg:w-1/4">
+        <div className='flex flex-col justify-center border'>
+
         <div className="info text-white mt-4 px-4 text-center">
           Simple to learn, impossible to master! Flip your way to victory in this timeless strategy game where every move counts. With each turn, the board shifts, and fortunes can change in an instant.
           New to the game?? 
@@ -289,14 +294,14 @@ const Board = () => {
         
 
           <Dialog>
-            <DialogTrigger className='text-white px-4 hover:underline font-bold py-1'>   Check out the instructions to playℹ️
+            <DialogTrigger className='text-white px-4 hover:underline font-bold pb-3'>   Check out the instructions to playℹ️
 
 
 
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle className="pb-1 text-xl">Instructions</DialogTitle>
+                <DialogTitle className=" text-xl">Instructions</DialogTitle>
                 <DialogDescription>
                   <p className='text-lg font-bold'>Objective:</p>
                   The goal is to have more of your color discs on the board than your opponent when the game ends. You play as black and the computer plays as white.
@@ -347,36 +352,36 @@ const Board = () => {
         </div>
       </div>
 
-      <div className="middle xl:w-[35vw] xl:mx-[2.5vw] min-w-[35vw] ">
+      <div className="middle pb-9  flex justify-center items-center">
 
-        <div className="bg-[#000000] p-4 rounded-lg shadow-2xl mt-20 md:max-w-[80vh]">
-          <div className="grid grid-cols-8 gap-1">
+        <div className="bg-[#000000] p-4 rounded-lg shadow-2xl md:max-w-[465px] md:max-h-[465px]">
+          <div className="grid grid-cols-8 gap-x-1 gap-y-1">
             {board.map((row, rowIndex) => (
               row.map((cell, colIndex) => {
                 const isValid = isValidMove(board, rowIndex, colIndex, currentPlayer);
                 return (
                   <div style={{ boxShadow: 'boxShadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.001)' }}
-                    className={`lg:w-12 lg:h-12 w-9.9 h-10 bg-[#0b5a0b] shadow-inner flex items-center justify-center cursor-pointer
-                  ${isValid ? 'hover:bg-[#107e0f]' : ''}`}
+                  className={`lg:w-12 lg:h-12 w-10 h-10 bg-[#0b5a0b] shadow-inner flex items-center justify-center cursor-pointer
+                    ${isValid ? 'hover:bg-[#107e0f]' : ''}`}
                     onClick={() => handleClick(rowIndex, colIndex)}
-                  >
+                    >
                     {cell && (
                       <div
-                        className={`lg:w-10 w-8 h-8 lg:h-10 ${cell === 'black' ? 'bg-black' : 'bg-gray-100'
-                          } rounded-full shadow-lg shadow-black/50 flex items-center justify-center`}
+                      className={`lg:w-10 w-8 h-8 lg:h-10 ${cell === 'black' ? 'bg-black' : 'bg-gray-100'
+                      } rounded-full shadow-lg shadow-black/50 flex items-center justify-center`}
                       >
                         <div
                           className={`w-8 h-8 rounded-full ${cell === 'black'
                             ? 'bg-gradient-to-br from-gray-800 to-black'
                             : 'bg-gradient-to-br from-gray-300 to-gray-100'
                             }`}
-                        ></div>
+                            ></div>
                       </div>
                     )}
 
                     {isValid && !cell && (
                       <div className={`w-4 h-4 rounded-full drop-shadow-xl ${currentPlayer === 'black' ? 'bg-gray-900' : 'bg-gray-100'
-                        } opacity-50`}></div>
+                      } opacity-50`}></div>
                     )}
                   </div>
                 );
@@ -385,23 +390,24 @@ const Board = () => {
           </div>
         </div>
       </div>
-      <div className="right lg:w-[25vw] xl:w-[30vw] text-white mt-14">
-        <div className='bg-[#969696] lg:w-[25vw] md:ml-4 px-5 lg:mb-4 md:mb-0 md:pb-2 rounded-lg'>
+      <div className="right md:pb-9 lg:w-1/4 xl:w-1/4 text-white flex justify-center ">
+        <div className='bg-[#969696] lg:w-[20vw] max-h-56 px-5 lg:mb-4 md:mb-0 md:pb-2 rounded-lg'>
 
-        <div className="mt-4 text-2xl font-semibold">Player: {playerName}</div>
-        <div className="mt-2 text-xl font-medium">Current Turn:
-          <span className="ml-2">
+        <div className="mt-4 text-2xl font-semibold text-center">Player: {playerName}</div>
+        <div className="mt-2 text-xl font-medium text-center">Current Turn:
+          <span className="ml-2 text-center">
             <div className={`inline-block w-6 h-6 rounded-full ${currentPlayer === 'black' ? 'bg-black' : 'bg-gray-100'}`}></div>
           </span>
         </div>
-        <div className="mt-6 text-xl font-medium">Score</div>
-        <div className="text-lg font-medium">
+        <div className="mt-6 text-xl font-medium text-center">Score</div>
+        <div className="text-lg font-medium text-center">
           <div>Black: {blackScore}</div>
           <div>White: {whiteScore}</div>
         </div>
         </ div>
       </div>
     </div>
+            </div>
   );
 };
 
